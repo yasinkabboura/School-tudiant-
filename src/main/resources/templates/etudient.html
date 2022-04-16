@@ -36,14 +36,15 @@
                     <td th:text="${e.genre}"></td>
                     <td th:text="${e.estRegle}"></td>
                     <td >
-<!--                    <td sec:authorize="hasAuthority('ADMIN')">-->
-
-                        <a onclick="return confirm('are you sure')" class="btn btn-danger" th:href="@{/admin/delete(id=${e.getId()},keyword=${keyword},page=${current})}">
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                    <form action="#" th:action="@{'/admin/delete/{id}/{page}/{keyword}'(id=${e.getId()},page=${current},keyword=${keyword})}" th:method="delete" >
+                        <button  onclick="return confirm('are you sure')" type="submit" class="btn btn-danger">
                             Delete
-                        </a>
+                        </button>
+                    </form>
                     </td>
                     <td  >
-<!--                    <td  sec:authorize="hasAuthority('ADMIN')">-->
+                    <td  sec:authorize="hasAuthority('ADMIN')">
                         <a  class="btn btn-success" th:href="@{/admin/editEtudient(id=${e.getId()},keyword=${keyword},page=${current})}">
                             Edit
                         </a>

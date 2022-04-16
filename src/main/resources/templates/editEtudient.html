@@ -12,6 +12,10 @@
     <div class="col-md-6 offset-3">
 <form method="post" th:action="@{/admin/save(page=${page},keyword=${keyword})}">
     <div>
+        <label>ID</label>
+        <input class="form-control" type="hidden" name="id" th:value="${etudient.id}">
+    </div>
+    <div>
         <label>Nom</label>
         <input class="form-control" type="text" name="nom" th:value="${etudient.nom}">
         <span class="text-danger" th:errors= "${etudient.nom}"></span>
@@ -19,17 +23,17 @@
 
     <div>
         <label>Prenom</label>
-        <input class="form-control" type="text" name="nom" th:value="${etudient.prenom}">
+        <input class="form-control" type="text" name="prenom" th:value="${etudient.prenom}">
         <span class="text-danger" th:errors= "${etudient.prenom}"></span>
     </div>
     <div>
         <label>Email</label>
-        <input class="form-control" type="text" name="nom" th:value="${etudient.email}">
+        <input class="form-control" type="text" name="email" th:value="${etudient.email}">
         <span class="text-danger" th:errors= "${etudient.email}"></span>
     </div>
     <div>
         <Label>Date Naissance</label>
-        <input class= "form-control" type="date" name="dateNaissance" th:value="${etudient.date_naissance}">
+        <input class= "form-control" type="date" name="date_naissance" th:value="${etudient.date_naissance}">
         <span class="text-danger" th:errors="${etudient.date_naissance}"></span>
     </div>
     <div>

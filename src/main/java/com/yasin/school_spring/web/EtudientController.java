@@ -8,9 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -31,9 +29,12 @@ public class EtudientController {
         return "etudient";
     }
 
-    @GetMapping( "/admin/delete")
-    public String delete(Long id,String keyword,int page){
+    @RequestMapping(value={"/admin/delete/{id}/{page}/{keyword}","/admin/delete/{id}/{page}"}, method = RequestMethod.DELETE)
+    public String delete(@PathVariable Long id,@PathVariable int page,@PathVariable(required = false) String keyword){
         etudientRepository.deleteById(id);
+        if (keyword == null) {
+            keyword="";
+        }
         return "redirect:/user/index?page="+page+"&keyword="+keyword;
     }
     @GetMapping( "/")
@@ -46,11 +47,16 @@ public class EtudientController {
         return "formEtudient";
     }
     @PostMapping(path ="/admin/save")
-    public String save (Model model, @Valid Etudiant patient, BindingResult bindingResult,
+    public String save (Model model, @Valid Etudiant etudiant, BindingResult bindingResult,
                         @RequestParam(defaultValue = "") String keyword,
                         @RequestParam(defaultValue = "0")int page) {
-        if (bindingResult.hasErrors()) return "formEtudient" ;
-        etudientRepository.save (patient);
+        if (bindingResult.hasErrors()){
+            return "formEtudient" ;
+        }
+        System.out.println("****************************************************************************");
+        System.out.println(etudiant.toString());
+        System.out.println("****************************************************************************");
+        etudientRepository.save(etudiant);
         return "redirect:/user/index?page="+page+"&keyword="+keyword;
     }
     @GetMapping( "/admin/editEtudient")
